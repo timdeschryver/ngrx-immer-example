@@ -16,7 +16,7 @@ import { LoadCatalog } from './actions/catalog.actions';
         <img mat-card-image [src]="product.image" [alt]="product.name">
         <mat-card-actions>
           <button mat-button (click)="addProduct(product.sku)">Add to cart</button>
-          <button mat-button (click)="removeProduct(product.sku)">Remove from card</button>
+          <button mat-button (click)="removeProduct(product.sku)">Remove from cart</button>
         </mat-card-actions>
       </mat-card>
     </div>

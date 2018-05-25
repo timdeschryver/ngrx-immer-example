@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State, getCatalog, getCartSummary } from './reducers';
-import { AddToCart, RemoveFromCart } from './actions/cart.actions';
+import { AddToCart, RemoveFromCart, EmptyCart } from './actions/cart.actions';
 import { LoadCatalog } from './actions/catalog.actions';
 
 @Component({
@@ -16,7 +16,7 @@ import { LoadCatalog } from './actions/catalog.actions';
         <img mat-card-image [src]="product.image" [alt]="product.name">
         <mat-card-actions>
           <button mat-button (click)="addProduct(product.sku)">Add to cart</button>
-          <button mat-button (click)="removeProduct(product.sku)">Remove from card</button>
+          <button mat-button (click)="removeProduct(product.sku)">Remove from cart</button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -25,17 +25,19 @@ import { LoadCatalog } from './actions/catalog.actions';
     <hr/>
 
     <ng-container *ngIf="cartItems | async as items">
-      <mat-list *ngIf="items.length; else emptyCart">
-        <mat-list-item *ngFor="let item of items">
-          <img matListAvatar [src]="item.product.image">
-          <h3 matLine>{{ item.product.name }} ({{ item.amount }})</h3>
-        </mat-list-item>
-      </mat-list>
+      <div *ngIf="items.length; else empty">
+        <mat-list>
+          <mat-list-item *ngFor="let item of items">
+            <img matListAvatar [src]="item.product.image">
+            <h3 matLine>{{ item.product.name }} ({{ item.amount }})</h3>
+          </mat-list-item>
+        </mat-list>
 
-      <ng-template #emptyCart>
-        <div>
-          Cart is empty ...
-        </div>
+        <button mat-button (click)="emptyCart()">Empty cart</button>
+      </div>
+
+      <ng-template #empty>
+        Cart is empty ...
       </ng-template>
     </ng-container>
   `,
@@ -82,5 +84,9 @@ export class AppComponent implements OnInit {
 
   removeProduct(sku: string) {
     this.store.dispatch(new RemoveFromCart({ sku }));
+  }
+
+  emptyCart() {
+    this.store.dispatch(new EmptyCart());
   }
 }

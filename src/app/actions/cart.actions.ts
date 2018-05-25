@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 export enum CartActionTypes {
   AddToCart = '[Product List] Add to cart',
   RemoveFromCart = '[Product List] Remove from cart',
+  EmptyCart = '[Cart] Empty cart',
 }
 
 export class AddToCart implements Action {
@@ -15,4 +16,8 @@ export class RemoveFromCart implements Action {
   constructor(public payload: { sku: string }) {}
 }
 
-export type CartActions = AddToCart | RemoveFromCart;
+export class EmptyCart implements Action {
+  readonly type = CartActionTypes.EmptyCart;
+}
+
+export type CartActions = AddToCart | RemoveFromCart | EmptyCart;

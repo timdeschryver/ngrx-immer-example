@@ -16,7 +16,6 @@ export function reducer(state = initialState, action: CatalogActions) {
   switch (action.type) {
     case CatalogActionTypes.Load:
       return {
-        ...state,
         products: action.payload.products.reduce((obj, product) => {
           obj[product.sku] = product;
           return obj;

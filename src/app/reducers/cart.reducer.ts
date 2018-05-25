@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { CartActionTypes, CartActions } from '../actions/cart.actions';
 
 export interface State {
-  cartItems: { [id: string]: number };
+  cartItems: { [sku: string]: number };
 }
 
 export const initialState: State = {
@@ -28,6 +28,9 @@ export function reducer(state = initialState, action: CartActions) {
           [action.payload.sku]: Math.max((state.cartItems[action.payload.sku] || 0) - 1, 0),
         },
       };
+
+    case CartActionTypes.EmptyCart:
+      return initialState;
 
     default:
       return state;

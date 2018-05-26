@@ -10,7 +10,7 @@ export const initialState: State = {
   cartItems: {},
 };
 
-export const reducer = produce((draft, action: CartActions) => {
+export const reducer = produce<State, CartActions>((draft, action) => {
   switch (action.type) {
     case CartActionTypes.AddToCart:
       draft.cartItems[action.payload.sku] = (draft.cartItems[action.payload.sku] || 0) + 1;

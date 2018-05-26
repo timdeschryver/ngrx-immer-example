@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import produce from 'immer';
 import { Product } from '../models';
 import { CatalogActions, CatalogActionTypes } from '../actions/catalog.actions';
 
@@ -12,21 +13,15 @@ export const initialState: State = {
   productSkus: [],
 };
 
-export function reducer(state = initialState, action: CatalogActions) {
+export const reducer = produce<State, CatalogActions>((draft, action) => {
   switch (action.type) {
     case CatalogActionTypes.Load:
-      return {
-        products: action.payload.products.reduce((obj, product) => {
-          obj[product.sku] = product;
-          return obj;
-        }, {}),
-        productSkus: action.payload.products.map(product => product.sku),
-      };
-
-    default:
-      return state;
+      action.payload.products.forEach(product => {
+        draft.products[product.sku] = product;
+        draft.productSkus.push(product.sku);
+      });
   }
-}
+}, initialState);
 
 export const getProducts = (state: State) => state.products;
 export const getProductSkus = (state: State) => state.productSkus;

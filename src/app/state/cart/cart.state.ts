@@ -16,10 +16,12 @@ export const initialState: CartStateModel = {
 export class CartState {
   @Selector([CatalogState])
   static cartItems(state: CartStateModel, catalogState: CatalogStateModel): CartItem[] {
-    return Object.keys(state.cartItems).map(sku => ({
-      product: catalogState.products[sku],
-      amount: state.cartItems[sku],
-    }));
+    return Object.keys(state.cartItems)
+      .filter(p => state.cartItems[p])
+      .map(sku => ({
+        product: catalogState.products[sku],
+        amount: state.cartItems[sku],
+      }));
   }
 
   @Action(AddToCart)

@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, Select } from '@ngxs/store';
 
-import { LoadCatalog } from './actions/catalog.actions';
-import { AddToCart, RemoveFromCart, EmptyCart } from './actions/cart.actions';
-import { CatalogState } from './state/catalog.state';
-import { CartState } from './state/cart.state';
 import { Product, CartItem } from './models';
+import { CatalogState, LoadCatalog } from './state/catalog';
+import { CartState, AddToCart, RemoveFromCart, EmptyCart } from './state/cart';
 
 @Component({
   selector: 'app-root',

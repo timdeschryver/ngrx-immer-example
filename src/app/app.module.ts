@@ -7,8 +7,8 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { AppComponent } from './app.component';
-import { CatalogState } from './state/catalog.state';
-import { CartState } from './state/cart.state';
+import { CatalogState } from './state/catalog';
+import { CartState } from './state/cart';
 
 const MATERIAL_COMPONENTS = [MatButtonModule, MatCardModule, MatListModule, MatBadgeModule];
 

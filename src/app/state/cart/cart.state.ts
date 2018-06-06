@@ -1,15 +1,11 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import produce from 'immer';
-import { Product, CartItem } from '../models';
-import { LoadCatalog } from '../actions/catalog.actions';
-import { CatalogState, CatalogStateModel } from './catalog.state';
-import { AddToCart, RemoveFromCart, EmptyCart } from '../actions/cart.actions';
+import { Product, CartItem } from '../../models';
+import { CatalogStateModel, CatalogState } from '../catalog';
+import { CartStateModel } from './cart.models';
+import { AddToCart, RemoveFromCart, EmptyCart } from './cart.actions';
 
-export interface CartStateModel {
-  cartItems: { [sku: string]: number };
-}
-
-export const initialState = {
+export const initialState: CartStateModel = {
   cartItems: {},
 };
 

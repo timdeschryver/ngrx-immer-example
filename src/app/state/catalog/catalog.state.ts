@@ -1,12 +1,7 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import produce from 'immer';
-import { Product } from '../models';
-import { LoadCatalog } from '../actions/catalog.actions';
-
-export interface CatalogStateModel {
-  products: { [sku: string]: Product };
-  productSkus: string[];
-}
+import { CatalogStateModel } from './catalog.models';
+import { LoadCatalog } from './catalog.actions';
 
 @State<CatalogStateModel>({
   name: 'catalog',

@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getAllCartSummary 1`] = `
+Array [
+  Object {
+    "amount": 3,
+    "product": Object {
+      "image": "image-PRODUCT-AAA",
+      "name": "name-PRODUCT-AAA",
+      "price": 1,
+      "sku": "PRODUCT-AAA",
+    },
+  },
+  Object {
+    "amount": 0,
+    "product": Object {
+      "image": "image-PRODUCT-CCC",
+      "name": "name-PRODUCT-CCC",
+      "price": 1,
+      "sku": "PRODUCT-CCC",
+    },
+  },
+]
+`;
+
+exports[`getCartItems 1`] = `
+Object {
+  "PRODUCT-AAA": 3,
+  "PRODUCT-CCC": 0,
+}
+`;
+
+exports[`getCartSummary 1`] = `
+Array [
+  Object {
+    "amount": 3,
+    "product": Object {
+      "image": "image-PRODUCT-AAA",
+      "name": "name-PRODUCT-AAA",
+      "price": 1,
+      "sku": "PRODUCT-AAA",
+    },
+  },
+]
+`;
+
+exports[`getCatalog 1`] = `
+Array [
+  Object {
+    "image": "image-PRODUCT-AAA",
+    "name": "name-PRODUCT-AAA",
+    "price": 1,
+    "sku": "PRODUCT-AAA",
+  },
+  Object {
+    "image": "image-PRODUCT-BBB",
+    "name": "name-PRODUCT-BBB",
+    "price": 1,
+    "sku": "PRODUCT-BBB",
+  },
+  Object {
+    "image": "image-PRODUCT-CCC",
+    "name": "name-PRODUCT-CCC",
+    "price": 1,
+    "sku": "PRODUCT-CCC",
+  },
+]
+`;
+
+exports[`getProductSkus 1`] = `
+Array [
+  "PRODUCT-AAA",
+  "PRODUCT-BBB",
+  "PRODUCT-CCC",
+]
+`;
+
+exports[`getProducts 1`] = `
+Object {
+  "PRODUCT-AAA": Object {
+    "image": "image-PRODUCT-AAA",
+    "name": "name-PRODUCT-AAA",
+    "price": 1,
+    "sku": "PRODUCT-AAA",
+  },
+  "PRODUCT-BBB": Object {
+    "image": "image-PRODUCT-BBB",
+    "name": "name-PRODUCT-BBB",
+    "price": 1,
+    "sku": "PRODUCT-BBB",
+  },
+  "PRODUCT-CCC": Object {
+    "image": "image-PRODUCT-CCC",
+    "name": "name-PRODUCT-CCC",
+    "price": 1,
+    "sku": "PRODUCT-CCC",
+  },
+}
+`;

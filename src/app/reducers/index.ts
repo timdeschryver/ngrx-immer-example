@@ -1,4 +1,8 @@
-import { ActionReducerMap, createSelector, createFeatureSelector } from '@ngrx/store';
+import {
+  ActionReducerMap,
+  createSelector,
+  createFeatureSelector,
+} from '@ngrx/store';
 
 import * as fromCatalog from './catalog';
 import * as fromCart from './cart';
@@ -14,20 +18,35 @@ export const reducers: ActionReducerMap<State> = {
   cart: fromCart.reducer,
 };
 
-export const getCatalogState = createFeatureSelector<fromCatalog.State>('catalog');
-export const getProducts = createSelector(getCatalogState, fromCatalog.getProducts);
-export const getProductSkus = createSelector(getCatalogState, fromCatalog.getProductSkus);
-export const getCatalog = createSelector(getProductSkus, getProducts, (skus, products) =>
-  skus.map(sku => products[sku]),
+export const getCatalogState = createFeatureSelector<fromCatalog.State>(
+  'catalog',
+);
+export const getProducts = createSelector(
+  getCatalogState,
+  fromCatalog.getProducts,
+);
+export const getProductSkus = createSelector(
+  getCatalogState,
+  fromCatalog.getProductSkus,
+);
+export const getCatalog = createSelector(
+  getProductSkus,
+  getProducts,
+  (skus, products) => skus.map(sku => products[sku]),
 );
 
 export const getCartState = createFeatureSelector<fromCart.State>('cart');
 export const getCartItems = createSelector(getCartState, fromCart.getCartItems);
 
-export const getAllCartSummary = createSelector(getProducts, getCartItems, (products, cart): CartItem[] =>
-  Object.keys(cart).map(sku => ({
-    product: products[sku],
-    amount: cart[sku],
-  })),
+export const getAllCartSummary = createSelector(
+  getProducts,
+  getCartItems,
+  (products, cart): CartItem[] =>
+    Object.keys(cart).map(sku => ({
+      product: products[sku],
+      amount: cart[sku],
+    })),
 );
-export const getCartSummary = createSelector(getAllCartSummary, cart => cart.filter(item => item.amount > 0));
+export const getCartSummary = createSelector(getAllCartSummary, cart =>
+  cart.filter(item => item.amount > 0),
+);

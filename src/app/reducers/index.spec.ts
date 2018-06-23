@@ -1,56 +1,88 @@
-import { getProducts, getProductSkus, getCatalog, getCartItems, getAllCartSummary, getCartSummary, State } from './';
+import {
+  getProducts,
+  getProductSkus,
+  getCatalog,
+  getCartItems,
+  getAllCartSummary,
+  getCartSummary,
+  State,
+} from './';
 import { Product, CartItem } from '../models/index';
 
-const createProduct = ({ sku = '', name = '', image = '', price = 1 } = {}): Product => ({
+const createProduct = ({
+  sku = '',
+  name = '',
+  image = '',
+  price = 1,
+} = {}): Product => ({
   sku: sku,
   name: name || `name-${sku}`,
   price,
   image: image || `image-${sku}`,
 });
 
+const createCatalogState = ({
+  products = {
+    'PRODUCT-AAA': createProduct({ sku: 'PRODUCT-AAA' }),
+    'PRODUCT-BBB': createProduct({ sku: 'PRODUCT-BBB' }),
+    'PRODUCT-CCC': createProduct({ sku: 'PRODUCT-CCC' }),
+  },
+  productSkus = ['PRODUCT-AAA', 'PRODUCT-BBB', 'PRODUCT-CCC'],
+} = {}) => ({
+  catalog: {
+    products,
+    productSkus,
+  },
+});
+
+const createCartState = ({
+  cartItems = {
+    'PRODUCT-AAA': 3,
+    'PRODUCT-CCC': 0,
+  },
+} = {}) => ({
+  cart: {
+    cartItems,
+  },
+});
+
 const createState = ({
-  catalog = {
-    products: {
-      'PRODUCT-AAA': createProduct({ sku: 'PRODUCT-AAA' }),
-      'PRODUCT-BBB': createProduct({ sku: 'PRODUCT-BBB' }),
-      'PRODUCT-CCC': createProduct({ sku: 'PRODUCT-CCC' }),
-    },
-    productSkus: ['PRODUCT-AAA', 'PRODUCT-BBB', 'PRODUCT-CCC'],
-  },
-  cart = {
-    cartItems: {
-      'PRODUCT-AAA': 3,
-      'PRODUCT-CCC': 0,
-    },
-  },
+  catalog = createCatalogState(),
+  cart = createCartState(),
 } = {}): State => ({
-  catalog,
-  cart,
+  ...catalog,
+  ...cart,
 });
 
 // step 1
 test('getProducts', () => {
-  expect(Object.keys(getProducts(createState())).length).toEqual(3);
+  const state = createCatalogState();
+  expect(getProducts(state)).toBe(state.catalog.products);
 });
 
 test('getProductSkus', () => {
-  expect(getProductSkus(createState()).length).toBe(3);
+  const state = createCatalogState();
+  expect(getProductSkus(state)).toBe(state.catalog.productSkus);
 });
 
 test('getCatalog', () => {
-  expect(getCatalog(createState()).length).toBe(3);
+  const state = createCatalogState();
+  expect(getCatalog(state).length).toBe(3);
 });
 
 test('getCartItems', () => {
-  expect(Object.keys(getCartItems(createState())).length).toBe(2);
+  const state = createCartState();
+  expect(getCartItems(state)).toBe(state.cart.cartItems);
 });
 
 test('getAllCartSummary', () => {
-  expect(getAllCartSummary(createState()).length).toBe(2);
+  const state = createState();
+  expect(getAllCartSummary(state).length).toBe(2);
 });
 
 test('getCartSummary', () => {
-  expect(getCartSummary(createState()).length).toBe(1);
+  const state = createState();
+  expect(getCartSummary(state).length).toBe(1);
 });
 
 // step 2
@@ -58,22 +90,22 @@ const fixtures = [
   {
     name: 'getProducts',
     selector: getProducts,
-    state: createState(),
+    state: createCatalogState(),
   },
   {
     name: 'getProductSkus',
     selector: getProductSkus,
-    state: createState(),
+    state: createCatalogState(),
   },
   {
     name: 'getCatalog',
     selector: getCatalog,
-    state: createState(),
+    state: createCatalogState(),
   },
   {
     name: 'getCartItems',
     selector: getCartItems,
-    state: createState(),
+    state: createCartState(),
   },
   {
     name: 'getAllCartSummary',
@@ -88,27 +120,40 @@ const fixtures = [
 ];
 
 fixtures.forEach(fixture => {
-  test(fixture.name, () => {
+  test(`${fixture.name} with input ${JSON.stringify(fixture.state)}`, () => {
     expect(fixture.selector(fixture.state)).toMatchSnapshot();
   });
 });
 
 // step 3
-test('getCartSummary with projector', () => {
+test('getCartSummary only shows products with an amount', () => {
   const cartItems: CartItem[] = [
     {
       amount: 1,
-      product: createProduct(),
+      product: createProduct({ sku: 'foo' }),
     },
     {
       amount: 0,
-      product: createProduct(),
+      product: createProduct({ sku: 'bar' }),
     },
     {
       amount: 2,
-      product: createProduct(),
+      product: createProduct({ sku: 'baz' }),
     },
   ];
 
-  expect(getCartSummary.projector(cartItems).length).toBe(2);
+  expect(getCartSummary.projector(cartItems)).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        product: expect.objectContaining({
+          sku: 'foo',
+        }),
+      }),
+      expect.objectContaining({
+        product: expect.objectContaining({
+          sku: 'baz',
+        }),
+      }),
+    ]),
+  );
 });

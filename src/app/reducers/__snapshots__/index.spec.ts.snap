@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getAllCartSummary 1`] = `
+exports[`getAllCartSummary with input {"catalog":{"products":{"PRODUCT-AAA":{"sku":"PRODUCT-AAA","name":"name-PRODUCT-AAA","price":1,"image":"image-PRODUCT-AAA"},"PRODUCT-BBB":{"sku":"PRODUCT-BBB","name":"name-PRODUCT-BBB","price":1,"image":"image-PRODUCT-BBB"},"PRODUCT-CCC":{"sku":"PRODUCT-CCC","name":"name-PRODUCT-CCC","price":1,"image":"image-PRODUCT-CCC"}},"productSkus":["PRODUCT-AAA","PRODUCT-BBB","PRODUCT-CCC"]},"cart":{"cartItems":{"PRODUCT-AAA":3,"PRODUCT-CCC":0}}} 1`] = `
 Array [
   Object {
     "amount": 3,
@@ -23,14 +23,14 @@ Array [
 ]
 `;
 
-exports[`getCartItems 1`] = `
+exports[`getCartItems with input {"cart":{"cartItems":{"PRODUCT-AAA":3,"PRODUCT-CCC":0}}} 1`] = `
 Object {
   "PRODUCT-AAA": 3,
   "PRODUCT-CCC": 0,
 }
 `;
 
-exports[`getCartSummary 1`] = `
+exports[`getCartSummary with input {"catalog":{"products":{"PRODUCT-AAA":{"sku":"PRODUCT-AAA","name":"name-PRODUCT-AAA","price":1,"image":"image-PRODUCT-AAA"},"PRODUCT-BBB":{"sku":"PRODUCT-BBB","name":"name-PRODUCT-BBB","price":1,"image":"image-PRODUCT-BBB"},"PRODUCT-CCC":{"sku":"PRODUCT-CCC","name":"name-PRODUCT-CCC","price":1,"image":"image-PRODUCT-CCC"}},"productSkus":["PRODUCT-AAA","PRODUCT-BBB","PRODUCT-CCC"]},"cart":{"cartItems":{"PRODUCT-AAA":3,"PRODUCT-CCC":0}}} 1`] = `
 Array [
   Object {
     "amount": 3,
@@ -44,7 +44,7 @@ Array [
 ]
 `;
 
-exports[`getCatalog 1`] = `
+exports[`getCatalog with input {"catalog":{"products":{"PRODUCT-AAA":{"sku":"PRODUCT-AAA","name":"name-PRODUCT-AAA","price":1,"image":"image-PRODUCT-AAA"},"PRODUCT-BBB":{"sku":"PRODUCT-BBB","name":"name-PRODUCT-BBB","price":1,"image":"image-PRODUCT-BBB"},"PRODUCT-CCC":{"sku":"PRODUCT-CCC","name":"name-PRODUCT-CCC","price":1,"image":"image-PRODUCT-CCC"}},"productSkus":["PRODUCT-AAA","PRODUCT-BBB","PRODUCT-CCC"]}} 1`] = `
 Array [
   Object {
     "image": "image-PRODUCT-AAA",
@@ -67,7 +67,7 @@ Array [
 ]
 `;
 
-exports[`getProductSkus 1`] = `
+exports[`getProductSkus with input {"catalog":{"products":{"PRODUCT-AAA":{"sku":"PRODUCT-AAA","name":"name-PRODUCT-AAA","price":1,"image":"image-PRODUCT-AAA"},"PRODUCT-BBB":{"sku":"PRODUCT-BBB","name":"name-PRODUCT-BBB","price":1,"image":"image-PRODUCT-BBB"},"PRODUCT-CCC":{"sku":"PRODUCT-CCC","name":"name-PRODUCT-CCC","price":1,"image":"image-PRODUCT-CCC"}},"productSkus":["PRODUCT-AAA","PRODUCT-BBB","PRODUCT-CCC"]}} 1`] = `
 Array [
   "PRODUCT-AAA",
   "PRODUCT-BBB",
@@ -75,7 +75,7 @@ Array [
 ]
 `;
 
-exports[`getProducts 1`] = `
+exports[`getProducts with input {"catalog":{"products":{"PRODUCT-AAA":{"sku":"PRODUCT-AAA","name":"name-PRODUCT-AAA","price":1,"image":"image-PRODUCT-AAA"},"PRODUCT-BBB":{"sku":"PRODUCT-BBB","name":"name-PRODUCT-BBB","price":1,"image":"image-PRODUCT-BBB"},"PRODUCT-CCC":{"sku":"PRODUCT-CCC","name":"name-PRODUCT-CCC","price":1,"image":"image-PRODUCT-CCC"}},"productSkus":["PRODUCT-AAA","PRODUCT-BBB","PRODUCT-CCC"]}} 1`] = `
 Object {
   "PRODUCT-AAA": Object {
     "image": "image-PRODUCT-AAA",

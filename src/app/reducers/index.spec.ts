@@ -77,16 +77,37 @@ test('getCartItems', () => {
 
 test('getAllCartSummary', () => {
   const state = createState();
-  expect(getAllCartSummary(state).length).toBe(2);
+  expect(getAllCartSummary(state)).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        product: expect.objectContaining({
+          sku: 'PRODUCT-AAA',
+        }),
+      }),
+      expect.objectContaining({
+        product: expect.objectContaining({
+          sku: 'PRODUCT-CCC',
+        }),
+      }),
+    ]),
+  );
 });
 
 test('getCartSummary', () => {
   const state = createState();
-  expect(getCartSummary(state).length).toBe(1);
+  expect(getCartSummary(state)).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        product: expect.objectContaining({
+          sku: 'PRODUCT-AAA',
+        }),
+      }),
+    ]),
+  );
 });
 
 // step 2
-const fixtures = [
+const testCases = [
   {
     name: 'getProducts',
     selector: getProducts,
@@ -119,9 +140,9 @@ const fixtures = [
   },
 ];
 
-fixtures.forEach(fixture => {
-  test(`${fixture.name} with input ${JSON.stringify(fixture.state)}`, () => {
-    expect(fixture.selector(fixture.state)).toMatchSnapshot();
+testCases.forEach(({ name, state, selector }) => {
+  test(`${name} with input ${JSON.stringify(state)}`, () => {
+    expect(selector(state)).toMatchSnapshot();
   });
 });
 

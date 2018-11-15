@@ -10,26 +10,28 @@ export const initialState: State = {
   cartItems: {},
 };
 
-export const reducer = produce<State, CartActions>((draft, action) => {
-  switch (action.type) {
-    case CartActionTypes.AddToCart:
-      draft.cartItems[action.payload.sku] = (draft.cartItems[action.payload.sku] || 0) + 1;
-      return;
-
-    case CartActionTypes.RemoveFromCart:
-      const newAmount = draft.cartItems[action.payload.sku] - 1;
-      if (newAmount > 0) {
-        draft.cartItems[action.payload.sku] = newAmount;
+export function reducer(state = initialState, action: Action) {
+  return produce((draft, cartAction) => {
+    switch (cartAction.type) {
+      case CartActionTypes.AddToCart:
+        draft.cartItems[cartAction.payload.sku] = (draft.cartItems[cartAction.payload.sku] || 0) + 1;
         return;
-      }
-      delete draft.cartItems[action.payload.sku];
-      // or
-      // draft.cartItems[action.payload.sku] = Math.max((draft.cartItems[action.payload.sku] || 0) - 1, 0);
-      return;
 
-    case CartActionTypes.EmptyCart:
-      return initialState;
-  }
-}, initialState);
+      case CartActionTypes.RemoveFromCart:
+        const newAmount = draft.cartItems[cartAction.payload.sku] - 1;
+        if (newAmount > 0) {
+          draft.cartItems[cartAction.payload.sku] = newAmount;
+          return;
+        }
+        delete draft.cartItems[cartAction.payload.sku];
+        // or
+        // draft.cartItems[cartAction.payload.sku] = Math.max((draft.cartItems[cartAction.payload.sku] || 0) - 1, 0);
+        return;
+
+      case CartActionTypes.EmptyCart:
+        return initialState;
+    }
+  }, initialState)(state, action as CartActions);
+}
 
 export const getCartItems = (state: State) => state.cartItems;
